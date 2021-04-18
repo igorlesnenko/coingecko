@@ -30,8 +30,6 @@ export const Pagination = ({ page, perPage, total }: Props) => {
         page - itemsAround - Math.max(page + itemsAround - (pagesCount - 1), 0),
         0,
     );
-    
-    console.log('start', start);
 
     const end = Math.min(
         page + itemsAround - Math.min(page - itemsAround, 0),

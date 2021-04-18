@@ -51,8 +51,6 @@ export const Exchanges = ({ page }: { page: string }) => {
     return <h2>Loading exchanges...</h2>;
   }
   
-  console.log('exchanges', exchanges);
-  
   // coingecko API for some reason returns 'missing_small.png' when no image
   const isNoImageResponse = (image: string) => image === 'missing_small.png';
 
