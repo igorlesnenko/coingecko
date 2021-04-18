@@ -6,10 +6,15 @@ import { apiUrl } from '../../config';
 
 export const Exchange = ({ id }) => {
   const [exchange, setExchange] = React.useState(null);
-  React.useEffect(async () => {
+
+  const fetchExchange = async () => {
     const { data } = await axios.get(`${apiUrl}/exchanges/${id}`);
     setExchange(data);
-  }, []);
+  };
+
+  React.useEffect(async () => {
+    fetchExchange();
+  }, [id]);
 
   if (exchange === null) {
     return <h2>Loading exchange...</h2>;
