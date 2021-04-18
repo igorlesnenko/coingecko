@@ -31,23 +31,26 @@ type Exchange = {
 export const Exchanges = ({ page }: { page: string }) => {
   const [exchanges, setExchanges] = React.useState(null);
   const [total, setTotal] = React.useState(0);
+  const [loading, setIsLoading] = React.useState(true);
   
   const itemsPerPage = 10;
   const pageNumber = page ?? 1;
   
   const fetchExchanges = async () => {
+    setIsLoading(true);
     const { data, headers } = await axios.get(
         `${apiUrl}/exchanges?per_page=${itemsPerPage}&page=${pageNumber}`,
     );
     setExchanges(data);
     setTotal(headers.total);
+    setIsLoading(false);
   };
   
   React.useEffect( () => {
     fetchExchanges()
   }, [pageNumber]);
 
-  if (exchanges == null) {
+  if (loading) {
     return <h2>Loading exchanges...</h2>;
   }
   
