@@ -38,7 +38,7 @@ export const Pagination = ({ page, perPage, total }: Props) => {
 
     return (
         <LinksContainer>
-            {page > 0 && (
+            {page > 1 && (
                 <PageLinkContainer>
                     <Link to={`/exchanges/${page - 1}`}>←</Link>
                 </PageLinkContainer>
