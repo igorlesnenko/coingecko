@@ -59,31 +59,32 @@ export const Exchanges = ({ page }: { page: string }) => {
 
   return (
     <>
-      {(exchanges ?? []).map((exchange: Exchange) => (
-        <ExchangeRow key={exchange.id}>
-          {!isNoImageResponse(exchange.image) && (
-            <img src={exchange.image} alt={exchange.name} />
-          )}
+      {(exchanges ?? []).map((exchange: Exchange) => {
+        const data = [
+          <Link to={`/exchange/${exchange.id}`}>{exchange.name}</Link>,
+          exchange.country,
+          `Trust score: ${exchange.trust_score}`,
+          <a href={exchange.url}>{exchange.url}</a>,
+        ].filter(Boolean);
 
-          <div
-            style={{
-              marginLeft: '10px',
-            }}
-          >
-            <Link to={`/exchange/${exchange.id}`}>{exchange.name}</Link>
-            {' '}
-            •
-            {' '}
-            {exchange.country}
-            {' '}
-            • Trust score:
-            {exchange.trust_score}
-            {' '}
-            •
-            <a href={exchange.url}>{exchange.url}</a>
-          </div>
-        </ExchangeRow>
-      ))}
+        return (
+          <ExchangeRow key={exchange.id}>
+            {!isNoImageResponse(exchange.image) && (
+              <img src={exchange.image} alt={exchange.name} />
+            )}
+
+            <div
+              style={{
+                marginLeft: '10px',
+              }}
+            >
+              {data
+                .map<React.ReactNode>((item) => <span>{item}</span>)
+                .reduce((prev, curr) => [prev, ' • ', curr])}
+            </div>
+          </ExchangeRow>
+        );
+      })}
 
       <PaginationContainer>
         <Pagination
