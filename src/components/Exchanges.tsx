@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { Link } from 'gatsby';
 import { apiUrl } from '../../config';
-import {Pagination} from "../controls/Pagination";
+import { Pagination } from '../controls/Pagination';
 
 const ExchangeRow = styled.div`
   display: flex;
@@ -20,51 +20,50 @@ const PaginationContainer = styled.div`
 `;
 
 type Exchange = {
-  id: string,
-  image: string,
-  name: string,
-  country: string,
-  trust_score: number,
-  url: string
-}
+  id: string;
+  image: string;
+  name: string;
+  country: string;
+  trust_score: number;
+  url: string;
+};
 
 export const Exchanges = ({ page }: { page: string }) => {
   const [exchanges, setExchanges] = React.useState(null);
   const [total, setTotal] = React.useState(0);
   const [loading, setIsLoading] = React.useState(true);
-  
+
   const itemsPerPage = 10;
   const pageNumber = page ?? 1;
-  
+
   const fetchExchanges = async () => {
     setIsLoading(true);
     const { data, headers } = await axios.get(
-        `${apiUrl}/exchanges?per_page=${itemsPerPage}&page=${pageNumber}`,
+      `${apiUrl}/exchanges?per_page=${itemsPerPage}&page=${pageNumber}`,
     );
     setExchanges(data);
     setTotal(headers.total);
     setIsLoading(false);
   };
-  
-  React.useEffect( () => {
-    fetchExchanges()
+
+  React.useEffect(() => {
+    fetchExchanges();
   }, [pageNumber]);
 
   if (loading) {
     return <h2>Loading exchanges...</h2>;
   }
-  
+
   // coingecko API for some reason returns 'missing_small.png' when no image
   const isNoImageResponse = (image: string) => image === 'missing_small.png';
 
   return (
     <>
-      {(exchanges ?? []).map((exchange : Exchange) => (
+      {(exchanges ?? []).map((exchange: Exchange) => (
         <ExchangeRow key={exchange.id}>
-
-          {!isNoImageResponse(exchange.image) &&
-            <img src={exchange.image} alt={exchange.name}/>
-          }
+          {!isNoImageResponse(exchange.image) && (
+            <img src={exchange.image} alt={exchange.name} />
+          )}
 
           <div
             style={{
@@ -81,7 +80,6 @@ export const Exchanges = ({ page }: { page: string }) => {
             {exchange.trust_score}
             {' '}
             •
-            {' '}
             <a href={exchange.url}>{exchange.url}</a>
           </div>
         </ExchangeRow>
@@ -89,11 +87,15 @@ export const Exchanges = ({ page }: { page: string }) => {
 
       <PaginationContainer>
         <Pagination
-            page={Number.parseInt(pageNumber)}
-            perPage={itemsPerPage}
-            total={total}
+          page={Number.parseInt(pageNumber, 10)}
+          perPage={itemsPerPage}
+          total={total}
         />
-        <div>{total} results</div>
+        <div>
+          {total}
+          {' '}
+          results
+        </div>
       </PaginationContainer>
     </>
   );
