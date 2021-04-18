@@ -8,6 +8,7 @@ const ExchangesPage = () => (
   <Layout>
     <Router>
       <Exchanges path="/exchanges/:page" component={Exchanges} />
+      <Exchanges path="/exchanges" component={Exchanges} />
     </Router>
   </Layout>
 );
