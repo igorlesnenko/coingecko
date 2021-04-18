@@ -1,7 +1,10 @@
-/**
- * Implement Gatsby's Node APIs in this file.
- *
- * See: https://www.gatsbyjs.com/docs/node-apis/
- */
-
-// You can delete this file if you're not using it
+/* eslint-disable no-param-reassign */
+exports.onCreatePage = async ({ page, actions: { createPage } }) => {
+  if (page.path.match(/^\/exchanges/)) {
+    page.matchPath = '/exchanges/*';
+    createPage(page);
+  } else if (page.path.match(/^\/exchange/)) {
+    page.matchPath = '/exchange/*';
+    createPage(page);
+  }
+};

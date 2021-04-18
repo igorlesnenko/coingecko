@@ -3,15 +3,13 @@ import { Router } from '@gatsbyjs/reach-router';
 
 import Layout from '../components/layout';
 import { Exchanges } from '../components/Exchanges';
-import SEO from '../components/seo';
 
-const IndexPage = () => (
+const ExchangesPage = () => (
   <Layout>
-    <SEO title="Exchanges" />
     <Router>
-      <Exchanges path="/" component={Exchanges} />
+      <Exchanges path="/exchanges/:page" component={Exchanges} />
     </Router>
   </Layout>
 );
 
-export default IndexPage;
+export default ExchangesPage;
