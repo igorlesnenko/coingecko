@@ -9,3 +9,12 @@ npm run develop
 ```
 
 Navigate http://localhost:8000/
+
+
+# Testing
+
+We use cypress for E2E tests
+
+```
+npm run cypress:run
+```
