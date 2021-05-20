@@ -18,3 +18,8 @@ We use cypress for E2E tests
 ```
 npm run cypress:run
 ```
+
+# TODO
+
+- Add error handling
+- Make code more consistent — use typescript everywhere
